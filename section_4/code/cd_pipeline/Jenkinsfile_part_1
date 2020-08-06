@@ -1,14 +1,17 @@
+//The syntax used here is declarative
+//as of aug 6 2020 there is one one master node
 #!/usr/bin/groovy
 
 pipeline {
+	//agents are used on declarative syntax
+	//In declarative pipelines the agent directive is used for specifying which agent/slave the job/task is to be executed on.
     agent any
 
     options {
         disableConcurrentBuilds()
     }
-
+	
     stages {
-
         stage("Build") {
             steps { buildApp() }
 		}
@@ -16,10 +19,8 @@ pipeline {
         stage("Deploy - Dev") {
             steps { deploy('dev') }
 		}
-
 	}
 }
-
 
 // steps
 def buildApp() {
@@ -29,7 +30,7 @@ def buildApp() {
 }
 
 def deploy(environment) {
-
+	//declare the variables so they have deploy function scope
 	def containerName = ''
 	def port = ''
 
