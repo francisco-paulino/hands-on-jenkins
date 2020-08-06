@@ -73,9 +73,13 @@ def deploy(environment) {
 }
 
 def runOSCheck() {
-	sh "echo $PYTHONPATH"
-	sh "echo 'OS'"
-	sh "cat /etc/*-release"
+	sh '''
+	PYTHONPATH IS $PYTHONPATH
+	echo 'OS'
+	cat /etc/*-release
+	//curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+	//python get-pip.py
+	'''
 }
 
 def runUnittests() {
