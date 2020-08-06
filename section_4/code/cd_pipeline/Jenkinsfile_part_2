@@ -13,8 +13,11 @@ pipeline {
 
 	stages {
 
-		stage("Test - Unit tests") {
-			steps { runUnittests() }
+		stage("Test - Unit tests") 
+			steps {
+				runOSCheck()
+				runUnittests() 
+				}
 		}
 
 		stage("Build") {
@@ -70,6 +73,12 @@ def deploy(environment) {
 	sh "docker run -d -p ${port}:5000 --name ${containerName} hands-on-jenkins/myapp:${BUILD_NUMBER}"
 }
 
+def runOSCheck() {
+	echo $PYTHONPATH
+	//echo $PYTHONPATH
+	echo "OS"
+	cat /etc/*-release	
+}
 
 def runUnittests() {
 	sh "pip3 install --no-cache-dir -r ./section_4/code/cd_pipeline/requirements.txt"
